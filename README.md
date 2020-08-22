@@ -7,3 +7,9 @@ Using:
 - lifecycle
 - LiveData
 - RecyclerView
+
+TODO:
+- Navigation
+- Retrofit
+- Paging
+- Dark theme
