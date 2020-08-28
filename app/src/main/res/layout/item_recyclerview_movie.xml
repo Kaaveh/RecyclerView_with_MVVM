@@ -26,7 +26,7 @@
                 android:id="@+id/txt_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{Movie.name, default=MovieName}"
+                android:text="@{Movie.title, default=MovieName}"
                 android:textStyle="bold" />
 
             <TextView
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="@{Double.toString(Movie.rank), default=8.6}" />
+                android:text="@{Movie.rating, default=8.6}" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

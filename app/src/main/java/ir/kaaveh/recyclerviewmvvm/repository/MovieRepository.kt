@@ -1,10 +1,18 @@
 package ir.kaaveh.recyclerviewmvvm.repository
 
+import android.util.Log
 import ir.kaaveh.recyclerviewmvvm.model.Movie
+import ir.kaaveh.recyclerviewmvvm.network.MyAPI
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.Response
 
-fun getMoviesList(): List<Movie> =
-    arrayListOf(
-        Movie("Interstellar", 8.9),
-        Movie("WestWorld", 10.0),
-        Movie("Dark", 8.5)
-    )
+suspend fun getMovies(): List<Movie>? {
+    var response: Response<List<Movie>>
+    withContext(Dispatchers.IO) {
+        response = MyAPI().getMovies()
+        if (response.isSuccessful)
+            Log.e("MovieViewModel", "response.isSuccessful is true")
+    }
+    return response.body()
+}
