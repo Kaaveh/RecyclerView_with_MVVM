@@ -27,7 +27,7 @@ class MovieAdapter :
             )
         )
 
-    override fun getItemCount(): Int = movies!!.size
+    override fun getItemCount(): Int = movies?.size ?: 0
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.binding.movie = movies!![position]

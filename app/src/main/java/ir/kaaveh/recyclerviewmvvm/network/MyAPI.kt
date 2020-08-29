@@ -15,7 +15,7 @@ interface MyAPI {
         operator fun invoke(): MyAPI {
             return Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://api.simplifiedcoding.in/course-apis/")
+                .baseUrl("https://api.simplifiedcoding.in/course-apis/")
                 .build()
                 .create(MyAPI::class.java)
         }
