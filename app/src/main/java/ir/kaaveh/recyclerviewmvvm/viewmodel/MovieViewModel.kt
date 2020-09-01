@@ -14,12 +14,8 @@ class MovieViewModel : ViewModel() {
     private var _movies = MutableLiveData<List<Movie>>()
 
     init {
-        Log.e("MovieViewModel", "init started.")
         viewModelScope.launch {
-            Log.e("MovieViewModel", "Coroutine started.")
-            _movies.value = getMovies()
-            Log.e("MovieViewModel", "Coroutine finished.")
-            Log.e("MovieViewModel", _movies.toString())
+            _movies.value = getMovies()?.Search
         }
     }
 

@@ -1,13 +1,9 @@
 package ir.kaaveh.recyclerviewmvvm.model
 
 data class Movie(
-    val id: Int,
-    val image: String,
-    val is_new: Int,
-    val language: String,
-    val like_percent: Int,
-    val rating: String,
-    val title: String,
-    val type: String,
-    val vote_count: Int
+    val Title: String,
+    val Year: String,
+    val imdbID: String,
+    val Type: String,
+    val Poster: String,
 )
