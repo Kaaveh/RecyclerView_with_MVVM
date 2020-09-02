@@ -1,9 +1,15 @@
 package ir.kaaveh.recyclerviewmvvm.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Movie(
-    val Title: String,
-    val Year: String,
+    @SerializedName("Title")
+    val title: String,
+    @SerializedName("Year")
+    val year: String,
     val imdbID: String,
-    val Type: String,
-    val Poster: String,
+    @SerializedName("Type")
+    val type: String,
+    @SerializedName("Poster")
+    val poster: String
 )

@@ -27,7 +27,7 @@
                 android:id="@+id/txt_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{movie.Title, default=MovieName}"
+                android:text="@{movie.title, default=MovieName}"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/txt_rank"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +38,7 @@
                 android:id="@+id/txt_rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{movie.Year, default=2020}"
+                android:text="@{movie.year, default=2020}"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView"
                 app:layout_constraintEnd_toEndOf="@+id/txt_name"
                 app:layout_constraintStart_toStartOf="@+id/txt_name"
@@ -46,7 +46,7 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                app:imageUrl="@{movie.Poster}"
+                app:imageUrl="@{movie.poster}"
                 android:layout_width="92dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"

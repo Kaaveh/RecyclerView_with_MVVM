@@ -14,7 +14,7 @@ class MovieViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            _movies.value = getMovies()?.Search
+            _movies.value = getMovies()?.movieList
         }
     }
 
