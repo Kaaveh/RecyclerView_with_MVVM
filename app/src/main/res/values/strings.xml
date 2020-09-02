@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RecyclerView in MVVM</string>
+    <string name="movie_poster">Movie poster</string>
 </resources>

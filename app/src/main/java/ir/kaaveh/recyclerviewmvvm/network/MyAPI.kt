@@ -13,7 +13,7 @@ interface MyAPI {
 
     @GET("http://www.omdbapi.com/")
     suspend fun getMovies(
-        @Query("apikey") apikey: String = API_KEY,
+        @Query("apikey") apikey: String,
         @Query("s") s: String
     ): Response<MoviesResponse>
 
