@@ -8,12 +8,12 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface MyAPI {
-//    val API_KEY
-//        get() = "899f27bf"
+    val API_KEY
+        get() = "899f27bf"
 
     @GET("http://www.omdbapi.com/")
     suspend fun getMovies(
-        @Query("apikey") apikey: String,
+        @Query("apikey") apikey: String = API_KEY,
         @Query("s") s: String
     ): Response<MoviesResponse>
 
