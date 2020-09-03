@@ -10,10 +10,10 @@ Using:
 - lifecycle
 - LiveData
 - RecyclerView
+- Retrofit
+- Coroutine
 
 TODO:
 - Navigation
-- Retrofit
-- Coroutine
 - Paging
 - Dark theme
