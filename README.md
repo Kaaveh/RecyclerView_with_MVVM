@@ -14,6 +14,7 @@ Using:
 - Coroutine
 
 TODO:
+- RxJAVA
 - Navigation
 - Paging
 - Dark theme
