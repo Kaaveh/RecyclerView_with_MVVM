@@ -9,7 +9,6 @@ import ir.kaaveh.recyclerviewmvvm.repository.getMovies
 import kotlinx.coroutines.launch
 
 class MovieViewModel : ViewModel() {
-
     private var _movies = MutableLiveData<List<Movie>>()
 
     init {
@@ -20,4 +19,17 @@ class MovieViewModel : ViewModel() {
 
     val movies: LiveData<List<Movie>>
         get() = _movies
+
+    //Navigate to detail
+    private val _navigateToMovieDetail = MutableLiveData<Movie>()
+    val navigateToMovieDetail
+        get() = _navigateToMovieDetail
+
+    fun onMovieClicked(movie: Movie) {
+        _navigateToMovieDetail.value = movie
+    }
+
+    fun onMovieDetailNavigated() {
+        _navigateToMovieDetail.value = null
+    }
 }
