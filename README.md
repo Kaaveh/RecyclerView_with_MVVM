@@ -12,10 +12,10 @@ Using:
 - RecyclerView
 - Retrofit
 - Coroutine
+- Navigation
 
 TODO:
 - RxJAVA
-- Navigation
 - Paging
 - Dark theme
 - ROOM
