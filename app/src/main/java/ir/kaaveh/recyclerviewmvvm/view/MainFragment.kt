@@ -43,6 +43,7 @@ class MainFragment : Fragment() {
         })
         movieViewModel.movies.observe(viewLifecycleOwner, {
             movieAdapter.movies = it
+            binding.groupLoading.visibility = View.GONE
         })
 
         return binding.root
