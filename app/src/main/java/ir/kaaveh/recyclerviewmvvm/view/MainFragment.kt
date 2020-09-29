@@ -17,7 +17,6 @@ import ir.kaaveh.recyclerviewmvvm.repository.network.MovieNetworkDataSource
 import ir.kaaveh.recyclerviewmvvm.viewmodel.MovieViewModel
 import ir.kaaveh.recyclerviewmvvm.viewmodel.MovieViewModelFactory
 
-
 class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

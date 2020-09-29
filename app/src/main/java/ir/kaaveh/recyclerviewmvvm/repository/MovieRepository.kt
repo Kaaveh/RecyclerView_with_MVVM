@@ -15,13 +15,11 @@ class MovieRepository(movieNetworkDataSource: MovieNetworkDataSource) {
         get() = _movies
 
     init {
-        Log.e("MovieRepository", "MovieRepository initialized")
         GlobalScope.launch(Dispatchers.IO) {
             movieNetworkDataSource.fetchMovies()
         }
         movieNetworkDataSource.downloadedMovies.observeForever {
-            _movies = MutableLiveData<List<Movie>>(it)
-            Log.e("MovieRepository", "movies #items = {${movies.value?.size}}")
+            _movies.postValue(it)
         }
     }
 }

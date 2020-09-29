@@ -13,10 +13,8 @@ class MovieViewModel(movieRepository: MovieRepository) : ViewModel() {
         get() = _movies
 
     init {
-        Log.e("MovieViewModel", "MovieViewModel initialized")
         movieRepository.movies.observeForever {
-            _movies = MutableLiveData<List<Movie>>(it)
-            Log.e("MovieViewModel", "{${movies.value?.size}}")
+            _movies.postValue(it)
         }
     }
 
