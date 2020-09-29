@@ -1,7 +1,6 @@
-package ir.kaaveh.recyclerviewmvvm.network
+package ir.kaaveh.recyclerviewmvvm.repository.network
 
 import ir.kaaveh.recyclerviewmvvm.model.MoviesResponse
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -12,7 +11,7 @@ interface MyAPI {
     @GET("http://www.omdbapi.com/?apikey=899f27bf")
     suspend fun getMovies(
         @Query("s") s: String
-    ): Response<MoviesResponse>
+    ): MoviesResponse
 
     companion object {
         operator fun invoke(): MyAPI {

@@ -1,24 +1,24 @@
 package ir.kaaveh.recyclerviewmvvm.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import ir.kaaveh.recyclerviewmvvm.model.Movie
-import ir.kaaveh.recyclerviewmvvm.repository.getMovies
-import kotlinx.coroutines.launch
+import ir.kaaveh.recyclerviewmvvm.repository.MovieRepository
 
-class MovieViewModel : ViewModel() {
+class MovieViewModel(movieRepository: MovieRepository) : ViewModel() {
     private var _movies = MutableLiveData<List<Movie>>()
-
-    init {
-        viewModelScope.launch {
-            _movies.value = getMovies()?.movieList
-        }
-    }
-
     val movies: LiveData<List<Movie>>
         get() = _movies
+
+    init {
+        Log.e("MovieViewModel", "MovieViewModel initialized")
+        movieRepository.movies.observeForever {
+            _movies = MutableLiveData<List<Movie>>(it)
+            Log.e("MovieViewModel", "{${movies.value?.size}}")
+        }
+    }
 
     //Navigate to detail
     private val _navigateToMovieDetail = MutableLiveData<Movie>()

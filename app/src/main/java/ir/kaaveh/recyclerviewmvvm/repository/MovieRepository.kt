@@ -1,18 +1,27 @@
 package ir.kaaveh.recyclerviewmvvm.repository
 
 import android.util.Log
-import ir.kaaveh.recyclerviewmvvm.model.MoviesResponse
-import ir.kaaveh.recyclerviewmvvm.network.MyAPI
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import ir.kaaveh.recyclerviewmvvm.model.Movie
+import ir.kaaveh.recyclerviewmvvm.repository.network.MovieNetworkDataSource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import retrofit2.Response
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-suspend fun getMovies(searchMovie: String = "batman"): MoviesResponse? {
-    var response: Response<MoviesResponse>
-    withContext(Dispatchers.IO) {
-        response = MyAPI().getMovies(searchMovie)
-        if (response.isSuccessful)
-            Log.v("MovieViewModel", "response.isSuccessful is true")
+class MovieRepository(movieNetworkDataSource: MovieNetworkDataSource) {
+    private var _movies = MutableLiveData<List<Movie>>()
+    val movies: LiveData<List<Movie>>
+        get() = _movies
+
+    init {
+        Log.e("MovieRepository", "MovieRepository initialized")
+        GlobalScope.launch(Dispatchers.IO) {
+            movieNetworkDataSource.fetchMovies()
+        }
+        movieNetworkDataSource.downloadedMovies.observeForever {
+            _movies = MutableLiveData<List<Movie>>(it)
+            Log.e("MovieRepository", "movies #items = {${movies.value?.size}}")
+        }
     }
-    return response.body()
 }
