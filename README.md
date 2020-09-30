@@ -13,9 +13,9 @@ Using:
 - Retrofit
 - Coroutine
 - Navigation
+- ROOM
 
 TODO:
 - RxJAVA
 - Paging
 - Dark theme
-- ROOM
