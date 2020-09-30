@@ -13,6 +13,7 @@ import ir.kaaveh.recyclerviewmvvm.adapter.MovieAdapter
 import ir.kaaveh.recyclerviewmvvm.adapter.MovieListener
 import ir.kaaveh.recyclerviewmvvm.databinding.FragmentMainBinding
 import ir.kaaveh.recyclerviewmvvm.repository.MovieRepository
+import ir.kaaveh.recyclerviewmvvm.repository.database.MovieDatabase
 import ir.kaaveh.recyclerviewmvvm.repository.network.MovieNetworkDataSource
 import ir.kaaveh.recyclerviewmvvm.viewmodel.MovieViewModel
 import ir.kaaveh.recyclerviewmvvm.viewmodel.MovieViewModelFactory
@@ -26,7 +27,10 @@ class MainFragment : Fragment() {
         val binding: FragmentMainBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
-        val movieViewModelFactory = MovieViewModelFactory(MovieRepository(MovieNetworkDataSource()))
+        val application = requireNotNull(this.activity).application
+        val dataSource = MovieDatabase.getInstance(application)
+        val movieViewModelFactory =
+            MovieViewModelFactory(MovieRepository(MovieNetworkDataSource(), dataSource))
         val movieViewModel: MovieViewModel by viewModels { movieViewModelFactory }
 
         val movieAdapter = MovieAdapter(MovieListener { movie ->
