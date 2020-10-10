@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -38,6 +39,7 @@ class MainFragment : Fragment() {
         }
         )
         binding.movieRecyclerview.adapter = movieAdapter
+        binding.viewmodel = movieViewModel
 
         movieViewModel.navigateToMovieDetail.observe(viewLifecycleOwner, { movie ->
             movie?.let {
@@ -48,9 +50,17 @@ class MainFragment : Fragment() {
                 movieViewModel.onMovieDetailNavigated()
             }
         })
+
         movieViewModel.movies.observe(viewLifecycleOwner, {
             movieAdapter.movies = it
             binding.groupLoading.visibility = View.GONE
+        })
+
+        movieViewModel.darkMode.observe(viewLifecycleOwner, {
+            when(it){
+                true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
         })
 
         return binding.root

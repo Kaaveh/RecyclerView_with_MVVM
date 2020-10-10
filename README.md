@@ -15,8 +15,8 @@ Using:
 - Navigation
 - ROOM
 - WorkManager
+- Dark theme
 
 TODO:
 - RxJAVA
 - Paging
-- Dark theme

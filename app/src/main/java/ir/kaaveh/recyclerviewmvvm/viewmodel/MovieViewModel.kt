@@ -11,10 +11,19 @@ class MovieViewModel(movieRepository: MovieRepository) : ViewModel() {
     val movies: LiveData<List<Movie>>
         get() = _movies
 
+    private var _darkMode = MutableLiveData<Boolean>()
+    val darkMode: LiveData<Boolean>
+        get() = _darkMode
+
     init {
         movieRepository.movies.observeForever {
             _movies.postValue(it)
         }
+        _darkMode.value = false
+    }
+
+    fun darkModeChange() {
+        _darkMode.value = _darkMode.value != true
     }
 
     //Navigate to detail
