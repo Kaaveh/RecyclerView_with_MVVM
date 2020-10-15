@@ -2,22 +2,22 @@ package ir.kaaveh.recyclerviewmvvm.repository
 
 import ir.kaaveh.recyclerviewmvvm.repository.database.MovieDatabase
 import ir.kaaveh.recyclerviewmvvm.repository.network.MovieNetworkDataSource
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class MovieRepository(
     movieNetworkDataSource: MovieNetworkDataSource,
     movieDatabase: MovieDatabase
 ) {
-    var movies = movieDatabase.movieDatabaseDao.getAllMovies()
+    val movies = movieDatabase.movieDatabaseDao.getAllMovies()
+    private val job = Job()
+    private val scope = CoroutineScope(job)
 
     init {
-        GlobalScope.launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             movieNetworkDataSource.fetchMovies()
         }
         movieNetworkDataSource.downloadedMovies.observeForever {
-            GlobalScope.launch(Dispatchers.IO) {
+            scope.launch(Dispatchers.IO) {
                 movieDatabase.movieDatabaseDao.insert(it)
             }
         }

@@ -16,7 +16,8 @@ Using:
 - ROOM
 - WorkManager
 - Dark theme
+- Unit Test
 
 TODO:
-- RxJAVA
+- Coroutine Flow
 - Paging
