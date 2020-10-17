@@ -1,12 +1,16 @@
 package ir.kaaveh.recyclerviewmvvm.viewmodel
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ir.kaaveh.recyclerviewmvvm.model.Movie
 import ir.kaaveh.recyclerviewmvvm.repository.MovieRepository
+import javax.inject.Inject
 
-class MovieViewModel(movieRepository: MovieRepository) : ViewModel() {
+class MovieViewModel @ViewModelInject constructor(
+    movieRepository: MovieRepository
+) : ViewModel() {
     private var _movies = MutableLiveData<List<Movie>>()
     val movies: LiveData<List<Movie>>
         get() = _movies

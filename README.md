@@ -17,6 +17,7 @@ Using:
 - WorkManager
 - Dark theme
 - Unit Test
+- Dependency injection (Hilt)
 
 TODO:
 - Coroutine Flow

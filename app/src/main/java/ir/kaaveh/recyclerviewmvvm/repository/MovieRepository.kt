@@ -3,8 +3,9 @@ package ir.kaaveh.recyclerviewmvvm.repository
 import ir.kaaveh.recyclerviewmvvm.repository.database.MovieDatabase
 import ir.kaaveh.recyclerviewmvvm.repository.network.MovieNetworkDataSource
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-class MovieRepository(
+class MovieRepository @Inject constructor(
     movieNetworkDataSource: MovieNetworkDataSource,
     movieDatabase: MovieDatabase
 ) {

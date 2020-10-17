@@ -9,16 +9,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import ir.kaaveh.recyclerviewmvvm.R
 import ir.kaaveh.recyclerviewmvvm.adapter.MovieAdapter
 import ir.kaaveh.recyclerviewmvvm.adapter.MovieListener
 import ir.kaaveh.recyclerviewmvvm.databinding.FragmentMainBinding
-import ir.kaaveh.recyclerviewmvvm.repository.MovieRepository
-import ir.kaaveh.recyclerviewmvvm.repository.database.MovieDatabase
-import ir.kaaveh.recyclerviewmvvm.repository.network.MovieNetworkDataSource
 import ir.kaaveh.recyclerviewmvvm.viewmodel.MovieViewModel
-import ir.kaaveh.recyclerviewmvvm.viewmodel.MovieViewModelFactory
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,11 +26,7 @@ class MainFragment : Fragment() {
         val binding: FragmentMainBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
-        val application = requireNotNull(this.activity).application
-        val dataSource = MovieDatabase.getInstance(application)
-        val movieViewModelFactory =
-            MovieViewModelFactory(MovieRepository(MovieNetworkDataSource(), dataSource))
-        val movieViewModel: MovieViewModel by viewModels { movieViewModelFactory }
+        val movieViewModel: MovieViewModel by viewModels()
 
         val movieAdapter = MovieAdapter(MovieListener { movie ->
             movieViewModel.onMovieClicked(movie)
@@ -57,7 +51,7 @@ class MainFragment : Fragment() {
         })
 
         movieViewModel.darkMode.observe(viewLifecycleOwner, {
-            when(it){
+            when (it) {
                 true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
