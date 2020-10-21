@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -51,10 +52,7 @@ class MainFragment : Fragment() {
         })
 
         movieViewModel.darkMode.observe(viewLifecycleOwner, {
-            when (it) {
-                true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
+            setDefaultNightMode(if (it) MODE_NIGHT_YES else MODE_NIGHT_NO)
         })
 
         return binding.root
