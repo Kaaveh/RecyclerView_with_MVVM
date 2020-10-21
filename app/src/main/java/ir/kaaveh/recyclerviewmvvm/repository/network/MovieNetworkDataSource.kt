@@ -1,22 +1,26 @@
 package ir.kaaveh.recyclerviewmvvm.repository.network
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import ir.kaaveh.recyclerviewmvvm.model.Movie
+import ir.kaaveh.recyclerviewmvvm.model.MoviesResponse
+import retrofit2.Response
 import java.io.IOException
 
 class MovieNetworkDataSource {
-    private val _downloadedMovies = MutableLiveData<List<Movie>>()
-    val downloadedMovies: LiveData<List<Movie>>
-        get() = _downloadedMovies
 
-    suspend fun fetchMovies() {
+    suspend fun fetchMovies(movieName: String): List<Movie>? {
+        var response: Response<MoviesResponse>? = null
+        var movies: List<Movie>? = null
+
         try {
-            val fetchedMovies = MyAPI()
-                .getMovies("batman")
-            _downloadedMovies.postValue(fetchedMovies.movieList)
+            response = MyAPI().getMovies(movieName)
         } catch (e: IOException) {
             e.printStackTrace()
         }
+        response?.let {
+            if (response.isSuccessful) {
+                movies = response.body()?.movieList
+            }
+        }
+        return movies
     }
 }

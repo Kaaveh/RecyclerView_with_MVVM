@@ -2,25 +2,20 @@ package ir.kaaveh.recyclerviewmvvm.repository
 
 import ir.kaaveh.recyclerviewmvvm.repository.database.MovieDatabase
 import ir.kaaveh.recyclerviewmvvm.repository.network.MovieNetworkDataSource
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(
-    movieNetworkDataSource: MovieNetworkDataSource,
-    movieDatabase: MovieDatabase
+    private val movieDatabase: MovieDatabase
 ) {
     val movies = movieDatabase.movieDatabaseDao.getAllMovies()
-    private val job = Job()
-    private val scope = CoroutineScope(job)
 
-    init {
-        scope.launch(Dispatchers.IO) {
-            movieNetworkDataSource.fetchMovies()
-        }
-        movieNetworkDataSource.downloadedMovies.observeForever {
-            scope.launch(Dispatchers.IO) {
-                movieDatabase.movieDatabaseDao.insert(it)
-            }
+    suspend fun refreshMovies(movieName: String) {
+        withContext(Dispatchers.IO) {
+            val movies = async { MovieNetworkDataSource().fetchMovies(movieName) }
+            movies.await()?.let { movieDatabase.movieDatabaseDao.insert(it) }
         }
     }
 }

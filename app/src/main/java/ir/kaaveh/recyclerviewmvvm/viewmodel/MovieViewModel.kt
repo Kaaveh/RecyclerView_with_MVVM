@@ -4,24 +4,24 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import ir.kaaveh.recyclerviewmvvm.model.Movie
 import ir.kaaveh.recyclerviewmvvm.repository.MovieRepository
-import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 class MovieViewModel @ViewModelInject constructor(
     movieRepository: MovieRepository
 ) : ViewModel() {
-    private var _movies = MutableLiveData<List<Movie>>()
-    val movies: LiveData<List<Movie>>
-        get() = _movies
+
+    val movies = movieRepository.movies
 
     private var _darkMode = MutableLiveData<Boolean>()
     val darkMode: LiveData<Boolean>
         get() = _darkMode
 
     init {
-        movieRepository.movies.observeForever {
-            _movies.postValue(it)
+        viewModelScope.launch {
+            movieRepository.refreshMovies("batman")
         }
         _darkMode.value = false
     }
