@@ -3,6 +3,8 @@ package ir.kaaveh.recyclerviewmvvm.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ir.kaaveh.recyclerviewmvvm.R
 import ir.kaaveh.recyclerviewmvvm.databinding.ItemRecyclerviewMovieBinding
@@ -11,11 +13,16 @@ import ir.kaaveh.recyclerviewmvvm.model.Movie
 class MovieAdapter(private val clickListener: MovieListener) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    var movies: List<Movie>? = null
-        set(value) {
-            field = value
-            notifyDataSetChanged()
+    private val differCallback = object : DiffUtil.ItemCallback<Movie>() {
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem.imdbID == newItem.imdbID
         }
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    internal val differ = AsyncListDiffer(this, differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         MovieViewHolder(
@@ -27,10 +34,10 @@ class MovieAdapter(private val clickListener: MovieListener) :
             )
         )
 
-    override fun getItemCount(): Int = movies?.size ?: 0
+    override fun getItemCount(): Int = differ.currentList.size
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.binding.movie = movies!![position]
+        holder.binding.movie = differ.currentList[position]
         holder.binding.clickListener = clickListener
     }
 

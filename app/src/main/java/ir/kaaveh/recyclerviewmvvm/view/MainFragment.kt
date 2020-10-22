@@ -46,7 +46,7 @@ class MainFragment : Fragment() {
         })
 
         movieViewModel.movies.observe(viewLifecycleOwner, {
-            movieAdapter.movies = it
+            movieAdapter.differ.submitList(it)
             binding.groupLoading.visibility = View.GONE
         })
 
