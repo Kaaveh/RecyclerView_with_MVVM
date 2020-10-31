@@ -21,6 +21,7 @@ Using:
 
 TODO:
 - Coroutine Flow
+- Add SearchView
 
 # Screenshots
 <p float="left">
