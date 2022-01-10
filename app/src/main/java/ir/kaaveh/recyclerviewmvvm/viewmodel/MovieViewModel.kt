@@ -1,15 +1,17 @@
 package ir.kaaveh.recyclerviewmvvm.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.kaaveh.recyclerviewmvvm.model.Movie
 import ir.kaaveh.recyclerviewmvvm.repository.MovieRepository
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MovieViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MovieViewModel @Inject constructor(
     movieRepository: MovieRepository
 ) : ViewModel() {
 
